@@ -14,7 +14,7 @@ class EventsService {
         const events = await dbContext.Events.find().sort({ createdAt: -1 }).populate('creator', 'name picture')
         return events
     }
-    async getById() {
+    async getById(id) {
         const event = await dbContext.Events.findById(id).populate('creator', 'name picture')
         if (!event) {
             throw new BadRequest('no event by that id')
@@ -23,6 +23,7 @@ class EventsService {
     }
     async isCanceled(eventId, userId) {
         const event = await this.getById(eventId)
+        // @ts-ignore
         if (event.creatorId.toString() != userId) {
             throw new Forbidden("you cant delete this silly")
         }

@@ -1,6 +1,6 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
-import BaseController from " ../utils/BaseController.js";
 import { eventsService } from "../services/EventsService.js";
+import BaseController from "../utils/BaseController.js";
 
 
 export class EventsController extends BaseController {
