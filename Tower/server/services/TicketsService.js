@@ -3,20 +3,23 @@ import { BadRequest, Forbidden } from "../utils/Errors.js";
 import { eventsService } from "./EventsService.js";
 
 class TicketsService {
-    async getTickets(eventId) {
+    async getEventTickets(eventId) {
         let tickets = await dbContext.Tickets.find({ eventId: eventId }).populate('profile', 'name picture')
         return tickets
     }
-    async getTicketsById(accountId) {
-        let tickets = await dbContext.Tickets.find({ accountId: accountId }).populate('events')
+    async getByAccountId(accountId) {
+        let tickets = await dbContext.Tickets.find({ accountId: accountId }).populate('event')
         return tickets
     }
     async create(newTicket) {
-        // const event = await eventsService.getEventById(id)
-        // event.capacity = -1
+        const event = await eventsService.getEventById(newTicket.eventId)
+        if (event.capacity == 0) {
+            throw new BadRequest("No capacity available.")
+        }
         const ticket = await dbContext.Tickets.create(newTicket)
         await ticket.populate('profile', 'name picture')
-        // await ticket.populate('events')
+        event.capacity = - 1
+        await event.save()
         return ticket
     }
     async remove(ticketId, userId) {

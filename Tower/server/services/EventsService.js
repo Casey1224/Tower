@@ -1,5 +1,6 @@
 import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
+import { ticketsService } from "../services/TicketsService.js"
 
 
 
@@ -14,6 +15,7 @@ class EventsService {
         const events = await dbContext.Events.find().sort({ createdAt: -1 }).populate('creator', 'name picture')
         return events
     }
+
     async getEventById(id) {
         const event = await dbContext.Events.findById(id).populate('creator', 'name picture')
         if (!event) {

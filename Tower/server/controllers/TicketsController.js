@@ -6,8 +6,6 @@ export class TicketsController extends BaseController {
     constructor() {
         super('api/tickets')
         this.router
-            .get('', this.getTickets)
-            .get('/:id', this.getTicketsById)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.create)
             .delete('/:id', this.remove)
@@ -32,22 +30,23 @@ export class TicketsController extends BaseController {
 
         }
     }
-    async getTickets(req, res, next) {
-        try {
-            const tickets = await ticketsService.getTickets(req.query.name, req.query.offset)
-            res.send(tickets)
-        } catch (error) {
-            next(error)
-        }
-    }
-    async getTicketsById(req, res, next) {
-        try {
-            const ticket = await ticketsService.getTicketsById(req.params.id)
-            res.send(ticket)
-        } catch (error) {
-            next(error)
-        }
-    }
+    // }
+    // async getTickets(req, res, next) {
+    //     try {
+    //         const tickets = await ticketsService.getTickets()
+    //         return res.send(tickets)
+    //     } catch (error) {
+    //         next(error)
+    //     }
+    // }
+    // async getTicketsById(req, res, next) {
+    //     try {
+    //         let ticket = await ticketsService.getByAccountId(req.params.id)
+    //         return res.send(ticket)
+    //     } catch (error) {
+    //         next(error)
+    //     }
+    // }
 
 
 }
