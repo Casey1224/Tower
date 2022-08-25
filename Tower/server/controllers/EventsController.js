@@ -8,9 +8,10 @@ export class EventsController extends BaseController {
         super('api/events')
         this.router
             .get('', this.getAll)
-            .get('/:id', this.getById)
-            .post('', this.create)
+            .get('/:id', this.getEventById)
             .use(Auth0Provider.getAuthorizedUserInfo)
+            .post('', this.create)
+            .put('/:id', this.editEvent)
             .delete('/:id', this.isCanceled)
 
     }
@@ -32,9 +33,9 @@ export class EventsController extends BaseController {
             next(error)
         }
     }
-    async getById(req, res, next) {
+    async getEventById(req, res, next) {
         try {
-            const event = await eventsService.getById(req.params.id)
+            const event = await eventsService.getEventById(req.params.id)
             return res.send(event)
         } catch (error) {
             next(error)
@@ -45,6 +46,15 @@ export class EventsController extends BaseController {
         try {
             const message = await eventsService.isCanceled(req.params.id, req.userInfo.id)
             return res.send(message)
+        } catch (error) {
+            next(error)
+        }
+    }
+    async editEvent(req, res, next) {
+        try {
+
+            let event = await eventsService.editEvent(req.params.id, req.body)
+            res.send(event)
         } catch (error) {
             next(error)
         }
