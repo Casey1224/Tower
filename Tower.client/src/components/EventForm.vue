@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="create-event" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    <div class="modal fade" id="create-event" tabindex="-1" role="dialog" aria-labelledby="modelNameId"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -33,22 +33,24 @@
             </div>
         </div>
     </div>
-
-
-
 </template>
+
+
 <script>
 import { ref } from 'vue';
-import { eventsService } from '../services/EventsServices';
+import { useRoute } from 'vue-router';
+import { eventsService } from '../services/EventsServices.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 export default {
     setup() {
         const editable = ref({})
+        const route = useRoute()
         return {
             editable,
             async handleSubmit() {
                 try {
+                    editable.value.eventId = route.params.eventId
                     logger.log('creating event', editable.value)
                     await eventsService.createEvent(editable.value)
                     Pop.toast('event created!')

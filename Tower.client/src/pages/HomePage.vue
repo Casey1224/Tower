@@ -4,9 +4,10 @@
       <div class="col-12">
         <h2>Ticket Events</h2>
       </div>
-      <div v-for="c in ticketEvents" :key="t.id" class="col-3">
+      <!-- <div v-for="t in ticketEvents" :key="t.id" class="col-3">
         <TicketEvent :ticket="t" />
-      </div>
+      </div> -->
+
     </div>
     <div class="row bg-dark py-1 px-5 text-light">
       <div class="col-12">
@@ -50,22 +51,22 @@ export default {
         Pop.error(error)
       }
     }
-    async function getTicketEvents() {
-      try {
-        await ticketsService.getTicketEventsByAccount()
-      } catch (error) {
-        Pop.error(error)
+    // async function getTicketEvents() {
+    //   try {
+    //     await ticketsService.getTicketEventsByAccount()
+    //   } catch (error) {
+    //     Pop.error(error)
 
-      }
-    }
+    //   }
+    // }
     onMounted(async () => {
       getEvents();
-      getTicketEvents();
+      // getTicketEvents();
     })
     return {
       filterTerm,
-      events: computed(() => AppState.events.filter(e => filterTerm.value ? e.category == filterTerm.value : true)),
-      ticketEvents: computed(() => AppState.ticketEvents)
+      events: computed(() => AppState.events.filter(e => filterTerm.value ? e.type == filterTerm.value : true)),
+      // ticketEvents: computed(() => AppState.ticketEvents)
     }
   },
   components: { EventCard }

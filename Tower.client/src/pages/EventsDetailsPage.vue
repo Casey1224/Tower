@@ -37,13 +37,13 @@
 </template>
 <script>
 import { logger } from '../utils/Logger';
-import { eventsService } from '../services/EventsService.js';
+import { eventsService } from '../services/EventsServices.js';
 import { commentsService } from '../services/CommentsService.js';
 import { ticketsService } from '../services/TicketsService.js';
 import CommentCard from '../components/CommentCard.vue';
 import CommentForm from '../components/CommentForm.vue';
 import Pop from '../utils/Pop';
-import { computed, onMounted, popScopeId } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
 
@@ -52,7 +52,7 @@ export default {
         const route = useRoute();
         async function getEventsById() {
             try {
-                await eventsService.getById(route.params.eventsId);
+                await eventsService.getById(route.params.eventId);
             } catch (error) {
                 Pop.error(error);
             }
@@ -80,7 +80,7 @@ export default {
         });
 
         return {
-            event: computed(() => AppState.activeEvents),
+            event: computed(() => AppState.activeEvent),
             comments: computed(() => AppState.comments),
             ticketProfiles: computed(() => AppState.ticketProfiles),
             isTicket: computed(() => {
@@ -94,7 +94,7 @@ export default {
                 try {
 
                     let newTicket = {
-                        eventId: AppState.activeEvents.id,
+                        eventId: AppState.activeEvent.id,
 
                         accountId: AppState.account.id
                     }

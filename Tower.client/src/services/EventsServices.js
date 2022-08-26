@@ -11,7 +11,7 @@ class EventsService {
     async getById(id) {
         const res = await api.get('api/events/' + id)
         logger.log('got events by id', res.data)
-        AppState.activeEvents = res.data
+        AppState.activeEvent = res.data
     }
     async createEvent(newEvent) {
         const res = await api.post('api/events', newEvent)

@@ -3,8 +3,8 @@
         <form action="" @submit.prevent="handleSubmit">
             <div class="mb-3">
                 <label for="" class="form-label"></label>
-                <input type="url" v-model="editable.body" class="form-control" name="" id="" aria-describedby="helpId"
-                    placeholder="">
+                <input type="string" v-model="editable.body" class="form-control" name="" id=""
+                    aria-describedby="helpId" placeholder="">
                 <small id="helpId" class="form-text text-muted">Help text</small>
             </div>
             <button class="btn btn-primary">add comment</button>
