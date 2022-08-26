@@ -33,10 +33,12 @@ class CommentsService {
         }
         return comment
     }
-    async deleteComment(commentId) {
+    async deleteComment(commentId, userId) {
         let comment = await this.getCommentById(commentId)
-
-        await comment.remove() // this deletes it from the database
+        if (comment.creatorId.toString() != userId) {
+            throw new Forbidden("you dont have permission")
+        }
+        await comment.remove()
         return comment
 
     }

@@ -17,7 +17,7 @@ const routes = [
     component: loadPage('AboutPage')
   },
   {
-    path: '/even/:eventId',
+    path: '/event/:eventId',
     name: 'EventDetails',
     component: loadPage('EventDetailsPage'),
     beforeEnter: authSettled

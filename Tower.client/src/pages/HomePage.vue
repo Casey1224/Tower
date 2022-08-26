@@ -34,8 +34,10 @@
 import { onMounted, ref, computed } from 'vue';
 import { eventsService } from '../services/EventsServices';
 import EventCard from '../components/EventCard.vue';
+import ticketEvents from '../components/ticketEvents.vue';
 import Pop from '../utils/Pop';
 import { AppState } from '../AppState';
+import { ticketsService } from '../services/TicketsService';
 
 export default {
   name: 'Home',
@@ -48,9 +50,17 @@ export default {
         Pop.error(error)
       }
     }
+    async function getTicketEvents() {
+      try {
+        await ticketsService.getTicketEventsByAccount()
+      } catch (error) {
+        Pop.error(error)
+
+      }
+    }
     onMounted(async () => {
       getEvents();
-      // getTicketEvents();
+      getTicketEvents();
     })
     return {
       filterTerm,

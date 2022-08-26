@@ -7,8 +7,8 @@ class TicketsService {
         let tickets = await dbContext.Tickets.find({ eventId: eventId }).populate('profile', 'name picture')
         return tickets
     }
-    async getByAccountId(accountId) {
-        let tickets = await dbContext.Tickets.find({ accountId: accountId }).populate('event')
+    async getByAccountId(userId) {
+        let tickets = await dbContext.Tickets.find({ accountId: userId }).populate('event')
         return tickets
     }
     async create(newTicket) {
