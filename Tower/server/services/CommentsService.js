@@ -11,20 +11,6 @@ class CommentsService {
         await comment.populate('creator', 'name picture')
         return comment
     }
-    // async getById(id) {
-    //     const comment = await dbContext.Comments.findById(id).populate('creator', 'name picture')
-    //     if (!Comment) {
-    //         throw new BadRequest('no comment by that id')
-    //     }
-    //     return comment
-    // }
-    // async deleteComment(commentId, userId) {
-    //     const comment = await this.getById(commentId)
-    //     if (comment.creatorId.toString() != userId) {
-    //         throw new Forbidden("you don't have permission")
-    //     }
-    //     comment.remove()
-    // }
 
     async getCommentById(commentId) {
         let comment = await dbContext.Comments.findById(commentId)
@@ -33,13 +19,14 @@ class CommentsService {
         }
         return comment
     }
+
     async deleteComment(commentId, userId) {
         let comment = await this.getCommentById(commentId)
+        // @ts-ignore
         if (comment.creatorId.toString() != userId) {
-            throw new Forbidden("you dont have permission")
+            throw new BadRequest("you dont have permission")
         }
         await comment.remove()
-        return comment
 
     }
 

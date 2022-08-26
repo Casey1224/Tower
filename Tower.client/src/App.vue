@@ -1,7 +1,7 @@
 <template>
   <header>
     <Navbar />
-    <EventForm />
+
 
   </header>
   <main>
@@ -12,11 +12,15 @@
       Made with 💖 by CodeWorks
     </div>
   </footer>
+  <Model>
+    <EventForm />
+  </Model>
 </template>
 
 <script>
 import { computed } from 'vue';
 import { AppState } from './AppState';
+import EventForm from './components/EventForm.vue';
 
 
 export default {
@@ -26,7 +30,7 @@ export default {
       appState: computed(() => AppState)
     };
   },
-
+  components: { EventForm }
 }
 </script>
 <style lang="scss">

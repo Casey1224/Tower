@@ -10,18 +10,36 @@
                 <img class="img-fluid" :src="event.coverImg" alt="">
             </div>
             <div class="col-2">
+                <h5>Capacity: <b>{{ event.capacity }}</b> </h5>
+                <p>Start Date: <b>{{ event.startDate }}</b></p>
+                <p>description: <b>{{ event.description }}</b></p>
+                <p>location: <b>{{ event.location }}</b></p>
+                <p>type: <b>{{ event.type }}</b></p>
+                <h6 class="text-red" v-if="event.isCanceled">Event is Canceled!</h6>
+
+            </div>
+            <div class="col-2">
+
+                <button v-if="!userOrCanceled" class="btn btn-danger" @click="isCanceled">Cancel Event</button>
+
+            </div>
+
+            <div class="col-2">
 
                 <button v-if="!isTicket" class="btn btn-info" @click="ticket"><i class="mdi mdi-heart"></i>
                     Get Ticket</button>
                 <button v-else class="btn btn-danger" @click="removeTicket"><i class="mdi mdi-heart-broken"></i>
                     Remove Ticket</button>
+
             </div>
             <div class="col-7">
                 <div class="row">
                     \
                     <div v-for="t in ticketProfiles" class="col-2">
                         <img class="img-fluid rounded elevation-2" :src="t.profile.picture" :title="t.profile.name">
+                        <p></p>
                     </div>
+
 
                 </div>
             </div>
@@ -29,7 +47,9 @@
 
         <CommentForm />
         <div class="row">
-            <CommentCard :comment="c" v-for="(c, i) in comments" :key="c.id" />
+            <CommentCard :comment="c" v-for="c in comments" :key="c.id" />
+            <!-- <button v-if="comment" class="btn btn-info" @click="removeComment"><i class="mdi mdi-heart-broken"></i>
+                remove comment</button> -->
         </div>
 
 
@@ -72,26 +92,44 @@ export default {
                 Pop.error(error)
             }
         }
+        // async function getCommentProfiles() {
+        //     try {
+        //         await commentsService.getCommentProfilesByEvent(route.params.eventId)
+        //     } catch (error) {
+        //         Pop.error(error)
+        //     }
+        // }
 
         onMounted(() => {
             getEventsById();
             getCommentsByEventId();
             getTicketProfiles();
+            // getCommentProfiles()
         });
 
         return {
             event: computed(() => AppState.activeEvent),
             comments: computed(() => AppState.comments),
             ticketProfiles: computed(() => AppState.ticketProfiles),
+            // commentProfiles: computed(() => AppState.commentProfiles),
+
+            userOrCanceled: computed(() => {
+                if (AppState.activeEvent.isCanceled || AppState.activeEvent.creatorId !== AppState.account.id) {
+                    return true
+                }
+
+            }),
             isTicket: computed(() => {
                 if (AppState.ticketProfiles.find(t => t.accountId == AppState.account.id)) {
                     return true
                 }
                 return false
 
+
             }),
             async ticket() {
                 try {
+                    // if (this.event.isCanceled = false)
 
                     let newTicket = {
                         eventId: AppState.activeEvent.id,
@@ -111,7 +149,30 @@ export default {
                 } catch (error) {
                     Pop.error(error)
                 }
+            },
+            async isCanceled() {
+                try {
+                    let cancelEvent = Appstate.activeEvent.find(e => e.accountId == AppState.account.id)
+                    if (await Pop.confirm('are you sure you want to cancel?')) {
+                        await eventsService.isCanceled(cancelEvent.id)
+                    }
+                } catch (error) {
+                    logger.error(error)
+                }
             }
+
+
+
+
+
+            // async removeComment() {
+            //     try {
+            //         let commentRemove = AppState.commentProfiles.find(c => c.accountId == AppState.account.id)
+            //         await commentsService.removeComment(commentRemove.id)
+            //     } catch (error) {
+            //         Pop.error(error)
+            //     }
+            // }
 
         };
     },

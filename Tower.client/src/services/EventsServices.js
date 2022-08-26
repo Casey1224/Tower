@@ -19,6 +19,11 @@ class EventsService {
         AppState.events.unshift(res.data)
 
     }
+    async isCanceled(id) {
+        const res = await api.delete('api/events/' + id)
+        logger.log('event canceled', res.data)
+        AppState.activeEvent.isCanceled = true
+    }
 }
 
 

@@ -14,6 +14,23 @@ class CommentsService {
         logger.log('got comment by Id', res.data)
         AppState.comments = res.data
     }
+    // async getCommentEventsByAccount() {
+    //     const res = await api.get('account/comments')
+    //     logger.log('got tickets events by account')
+    //     AppState.commentEvents = res.data
+    // }
+    async removeComment(commentId) {
+        const res = await api.delete('api/comments/' + commentId)
+        logger.log('removed ticket', res.data)
+        AppState.comments = res.data
+    }
+    //     async removeComment(commentId) {
+    //         const res = await api.delete('api/comments/' + commentId)
+
+    //         logger.log('removed comment', res.data)
+    //         AppState.commentProfiles = AppState.commentProfiles.filter(c => c.id != eventId)
+    //         AppState.commentEvents = AppState.commentEvents.filter(c => c.id != eventId)
+    //     }
 }
 
 export const commentsService = new CommentsService()

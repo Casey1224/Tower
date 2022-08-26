@@ -4,9 +4,9 @@
       <div class="col-12">
         <h2>Ticket Events</h2>
       </div>
-      <!-- <div v-for="t in ticketEvents" :key="t.id" class="col-3">
+      <div v-for="t in ticketEvents" :key="t.id" class="col-3">
         <TicketEvent :ticket="t" />
-      </div> -->
+      </div>
 
     </div>
     <div class="row bg-dark py-1 px-5 text-light">

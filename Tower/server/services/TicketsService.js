@@ -18,7 +18,8 @@ class TicketsService {
         }
         const ticket = await dbContext.Tickets.create(newTicket)
         await ticket.populate('profile', 'name picture')
-        event.capacity = - 1
+        // @ts-ignore
+        event.capacity -= 1
         await event.save()
         return ticket
     }
@@ -27,6 +28,7 @@ class TicketsService {
         if (!ticket) {
             throw new BadRequest('no tickets with that id')
         }
+        // @ts-ignore
         if (ticket.accountId.toString() != userId) {
             throw new Forbidden('you cannot remove that Ticket')
 

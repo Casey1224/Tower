@@ -12,6 +12,11 @@ export const AppState = reactive({
 
   comments: [],
 
+  // commentProfiles: [],
+
+  // commentEvents: [],
+
+
   ticketProfiles: [],
 
   ticketEvents: [],
