@@ -24,7 +24,7 @@
 
             </div>
 
-            <div class="col-2">
+            <div class="col-2" v-if="!event.isCanceled">
 
                 <button v-if="!isTicket" class="btn btn-info" @click="ticket"><i class="mdi mdi-heart"></i>
                     Get Ticket</button>
