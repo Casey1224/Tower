@@ -15,7 +15,7 @@
                 <p>description: <b>{{ event.description }}</b></p>
                 <p>location: <b>{{ event.location }}</b></p>
                 <p>type: <b>{{ event.type }}</b></p>
-                <h6 class="text-red" v-if="event.isCanceled">Event is Canceled!</h6>
+                <h6 class="text-danger" v-if="event.isCanceled"><b>is Canceled!</b></h6>
 
             </div>
             <div class="col-2">
@@ -152,9 +152,9 @@ export default {
             },
             async isCanceled() {
                 try {
-                    let cancelEvent = Appstate.activeEvent.find(e => e.accountId == AppState.account.id)
+                    // let cancelEvent = AppState.activeEvent.find(e => e.accountId == AppState.account.id)
                     if (await Pop.confirm('are you sure you want to cancel?')) {
-                        await eventsService.isCanceled(cancelEvent.id)
+                        await eventsService.isCanceled(AppState.activeEvent.id)
                     }
                 } catch (error) {
                     logger.error(error)
