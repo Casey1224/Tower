@@ -1,6 +1,6 @@
 <template>
-    <div class="col-2">
-        <img class="img-fluid" :src="comment.creator.picture" alt="" :name="comment.creator.name">
+    <div class="col-1">
+        <img class="" :src="comment.creator.picture" alt="" :name="comment.creator.name">
     </div>
     <div>
         <p>{{ comment.body }}</p>
@@ -27,4 +27,5 @@ export default {
 };
 </script>
 <style >
+
 </style>

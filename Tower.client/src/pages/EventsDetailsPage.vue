@@ -32,21 +32,32 @@
                     Remove Ticket</button>
 
             </div>
-            <div class="col-7">
-                <div class="row">
-                    \
-                    <div v-for="t in ticketProfiles" class="col-2">
-                        <img class="img-fluid rounded elevation-2" :src="t.profile.picture" :title="t.profile.name">
-                        <p></p>
-                    </div>
+            <!-- <div class="col-12 d-flex bg-grey p-0">
 
-
+                <p>Attending:</p>
+                <div v-for="t in ticketProfiles" class="col-1 m-2">
+                    <img class="img-fluid rounded elevation-2" :src="t.profile.picture" :title="t.profile.name">
+                    <p></p>
                 </div>
+
+
+
+            </div> -->
+        </div>
+        <div class="row bg-grey ">
+
+            <p>Attending:</p>
+            <div v-for="t in ticketProfiles" class="col-1 m-2">
+                <img class="img-fluid rounded elevation-2" :src="t.profile.picture" :title="t.profile.name">
+                <p></p>
             </div>
+
+
+
         </div>
 
         <CommentForm />
-        <div class="row">
+        <div class="row m-3">
             <CommentCard :comment="c" v-for="c in comments" :key="c.id" />
             <!-- <button v-if="comment" class="btn btn-info" @click="removeComment"><i class="mdi mdi-heart-broken"></i>
                 remove comment</button> -->
@@ -183,4 +194,5 @@ export default {
 
 </script>
 <style >
+
 </style>

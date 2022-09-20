@@ -1,16 +1,19 @@
 <template>
-    <div class="row bg-dark p-3">
+
+
+
+    <div class="row bg-dark ">
         <form action="" @submit.prevent="handleSubmit">
             <div class="mb-3">
                 <label for="" class="form-label"></label>
-                <input type="string" v-model="editable.body" class="form-control" name="" id=""
-                    aria-describedby="helpId" placeholder="">
-                <small id="helpId" class="form-text text-muted">Help text</small>
+                <input type="text" v-model="editable.body" class="form-control" name="" id="" aria-describedby="helpId"
+                    placeholder="" />
+                <p id="helpId" class="form-text text-muted">Help text</p>
             </div>
-            <button class="btn btn-primary">add comment</button>
+            <button class="btn btn-primary">Add Comment</button>
         </form>
-
     </div>
+
 </template>
 <script>
 import { ref } from 'vue';
@@ -39,4 +42,5 @@ export default {
 };
 </script>
 <style >
+
 </style>

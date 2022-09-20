@@ -4,8 +4,8 @@
         <div class="bg-light border elevation-2 rounded selectable">
             <div class="p-1">
                 <img class="img-fluid" :src="event.coverImg" alt="">
-                <h3 class="text-dark">{{ event.name }}</h3>
-                <h6 v-if="event.creator">{{ event.creator.name }}</h6>
+                <h6 class="text-dark"><b>{{ event.name }}</b></h6>
+                <p class="text-dark">capacity:{{ event.capacity }}</p>
             </div>
         </div>
     </router-link>
@@ -28,4 +28,5 @@ export default {
 };
 </script>
 <style >
+
 </style>
